@@ -5,9 +5,9 @@ import { Link } from "react-router";
 const NotFound = () => {
   return (
     <Container className="pb-5">
-      <Row className="justify-content-center text-center my-5">
+      <Row className="justify-content-center text-center my-5 ">
         <Col md={8}>
-          <h1 className="display-3 text-info mt-5">404 — Page Not Found!</h1>
+          <h1 className="display-3 text-info mt-5 fw-semibold">404 — Page Not Found!</h1>
           <p className="lead text-light bg-opaque rounded-pill p-3 my-5"> Maybe it was swept away by a hurricane?</p>
           <Tornado className="text-light display-1 text-end" />
 
