@@ -1,11 +1,21 @@
 import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import {} from "react-bootstrap-icons";
 import { Button } from "react-bootstrap";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const MyNav = () => {
   const location = useLocation();
   console.log(location);
+  const [city, setCity] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/location-details/" + city);
+  };
+
   return (
     <Container className="pt-4 ">
       <Navbar expand="lg" className="bg-opaque rounded-4">
@@ -29,14 +39,17 @@ const MyNav = () => {
                 <NavDropdown.Item href="#action5">Placeholder</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Form className="d-flex">
+            <Form onSubmit={handleSubmit} className="d-flex">
               <Form.Control
                 type="search"
                 placeholder="Find your city here..."
                 className="rounded-start-pill"
                 aria-label="Search"
+                onChange={(e) => setCity(e.target.value)}
               />
-              <Button variant="outline-info text-light rounded-end-pill">Search</Button>
+              <Button type="submit" variant="info text-light rounded-end-pill">
+                Search
+              </Button>
             </Form>
           </Navbar.Collapse>
         </Container>

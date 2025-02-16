@@ -13,7 +13,7 @@ const App = () => {
         <MyNav />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/location-weather-details/:id" element={<WeatherDetails />} />
+          <Route path="/location-details/:id" element={<WeatherDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         {/* <MyFooter /> */}
