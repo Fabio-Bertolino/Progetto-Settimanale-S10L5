@@ -1,4 +1,4 @@
-import { Col, Container, ListGroup, ListGroupItem, Row, Image } from "react-bootstrap";
+import { Col, Container, ListGroup, ListGroupItem, Row, Image, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ThermometerHalf, ThermometerSnow, ThermometerSun } from "react-bootstrap-icons";
@@ -9,8 +9,10 @@ const WeatherDetails = () => {
 
   const [currentCity, setCurrentCity] = useState([]);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchDailyWeather = async () => {
+    setIsLoading(true);
     try {
       const cityResp = await fetch(
         "http://api.openweathermap.org/geo/1.0/direct?q=" +
@@ -44,13 +46,15 @@ const WeatherDetails = () => {
     } catch (error) {
       console.log(error);
       navigate("/404");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchDailyWeather();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fiveDayForecast]);
+  }, [params]);
 
   return (
     <Container>
@@ -60,13 +64,18 @@ const WeatherDetails = () => {
             Raindom<span className="text-info">App</span>
           </h1>
           <p className="text-light bg-opaque rounded-pill d-inline-block p-3">
-            The only app that gets forecasts always wrong!
+            The only app that gets forecasts always right!
           </p>
           <h2 className="text-light display-5 fw-semibold">
             Five days Forecast: <span className="text-info">{currentCity}</span>
           </h2>
           <hr className="text-light" />
           <ListGroup className="mb-5">
+            {isLoading && (
+              <Spinner animation="border" role="status" variant="secondary" className="d-block mx-auto my-3">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            )}
             {fiveDayForecast.map((forecast) => {
               return (
                 <ListGroupItem key={forecast.dt} className="bg-purple text-light p-0 m-1 rounded">

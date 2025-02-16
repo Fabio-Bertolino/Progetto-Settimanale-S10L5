@@ -1,4 +1,4 @@
-import { Col, Container, Image, Row, Form } from "react-bootstrap";
+import { Col, Container, Image, Row, Form, Spinner } from "react-bootstrap";
 // import sunnyLogo from "../assets/sunny.svg";
 import { Droplet, GeoAltFill, ThermometerSnow, ThermometerSun, Wind } from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
@@ -14,8 +14,10 @@ const Home = () => {
   const [todayWeatherInfo, setTodayWeatherInfo] = useState("");
   const [todayWeatherIcon, setTodayWeatherIcon] = useState("");
   const [city, setCity] = useState("Rome");
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchTodayWeather = async () => {
+    setIsLoading(true);
     try {
       const cityResp = await fetch(
         "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=69e0207f670eb8d5ea0e59c466ae8833"
@@ -53,6 +55,8 @@ const Home = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -181,6 +185,11 @@ const Home = () => {
               </Col>
               <Col sm={12} md={6} className="d-flex flex-column justify-content-center align-items-center">
                 <p className="text-dark fs-3 bg-info py-2 px-5 rounded-pill mt-4">
+                  {isLoading && (
+                    <Spinner animation="border" role="status" variant="secondary" className="d-block mx-auto my-3">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  )}
                   <GeoAltFill /> {todayWeatherLocation}
                 </p>
                 <h4 className="display-5 text-white">{todayWeatherInfo}</h4>
