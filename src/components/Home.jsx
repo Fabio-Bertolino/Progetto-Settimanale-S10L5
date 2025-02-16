@@ -1,6 +1,6 @@
 import { Col, Container, Image, Row } from "react-bootstrap";
 // import sunnyLogo from "../assets/sunny.svg";
-import { GeoAltFill } from "react-bootstrap-icons";
+import { Droplet, GeoAltFill, ThermometerSnow, ThermometerSun, Wind } from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 
 const Home = () => {
@@ -53,7 +53,7 @@ const Home = () => {
           <p className="text-light bg-opaque rounded-pill d-inline-block p-3">
             The only app that gets forecasts always wrong!
           </p>
-          <h2 className="text-info display-5">
+          <h2 className="text-info display-5 fw-semibold">
             <span className="text-light">Today&#39;s report:</span> {new Date(todayWeatherDate * 1000).toLocaleString()}
           </h2>
           <hr className="text-light" />
@@ -89,6 +89,7 @@ const Home = () => {
               <Col sm={4}>
                 <div className="bg-opaque rounded-4 p-3">
                   <p className="fs-4">Wind:</p>
+                  <Wind className="fs-3" />
                   <p className="fs-3 text-info">
                     {todayWeatherWind}
                     <span className="text-dark"> m/s</span>
@@ -98,6 +99,7 @@ const Home = () => {
               <Col sm={4}>
                 <div className="bg-opaque rounded-4 p-3">
                   <p className="fs-4">Humidity:</p>
+                  <Droplet className="fs-3" />
                   <p className="fs-3 text-info">
                     {todayWeatherHumidity}
                     <span className="text-dark">%</span>
@@ -106,9 +108,13 @@ const Home = () => {
               </Col>
               <Col sm={4}>
                 <div className="bg-opaque rounded-4 p-3">
-                  <p className="text-info fs-4">Min: </p>
+                  <p className="text-light fs-4">
+                    <ThermometerSnow /> Min:{" "}
+                  </p>
                   <p className="text-info fs-3">{todayWeatherMin}&deg;</p>
-                  <p className="text-dark fs-4">Max: </p>
+                  <p className="text-light fs-4">
+                    <ThermometerSun /> Max:{" "}
+                  </p>
                   <p className="text-dark fs-3">{todayWeatherMax}&deg;</p>
                 </div>
               </Col>
